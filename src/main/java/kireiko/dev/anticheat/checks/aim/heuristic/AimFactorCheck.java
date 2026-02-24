@@ -13,6 +13,7 @@ import kireiko.dev.millennium.vectors.Vec2f;
 import java.util.*;
 
 public final class AimFactorCheck implements HeuristicComponent {
+
     private final AimHeuristicCheck check;
     private boolean lastIsNoRotation = false;
     private double lastHash = 0;
@@ -28,11 +29,12 @@ public final class AimFactorCheck implements HeuristicComponent {
 
     @Override
     public ConfigLabel config() {
-        localCfg.put("addGlobalVl", 25);
+        localCfg.put("addGlobalVl", 10);
         localCfg.put("buffer", 3.0);
         localCfg.put("ticksToReset", 2500);
         return new ConfigLabel("factor_check", localCfg);
     }
+
     @Override
     public void applyConfig(Map<String, Object> params) {
         localCfg = params;
@@ -86,4 +88,5 @@ public final class AimFactorCheck implements HeuristicComponent {
         }
         lastHash = hash;
     }
+
 }

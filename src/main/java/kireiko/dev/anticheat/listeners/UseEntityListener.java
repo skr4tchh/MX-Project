@@ -20,8 +20,6 @@ import java.util.Collections;
 
 public final class UseEntityListener extends PacketAdapter {
 
-    private static final boolean modern = VersionUtil.is1_13orAbove();
-
     public UseEntityListener() {
         super(MX.getInstance(), ListenerPriority.HIGHEST, Collections.singletonList(PacketType.Play.Client.USE_ENTITY));
     }
@@ -41,11 +39,6 @@ public final class UseEntityListener extends PacketAdapter {
                         EnumWrappers.EntityUseAction.ATTACK);
         if (packet.getIntegers().getValues().isEmpty()) return;
         int entityId = packet.getIntegers().read(0);
-        /*
-        Entity entity = (modern) ? AsyncEntityFetcher.getEntityFromIDAsync(event.getPlayer().getWorld(), entityId).get()
-                        : ProtocolLibrary.getProtocolManager().
-                        getEntityFromID(event.getPlayer().getWorld(), entityId);
-         */
         Entity entity = ProtocolLibrary.getProtocolManager().
                         getEntityFromID(event.getPlayer().getWorld(), entityId);
         if (profile.getAttackBlockToTime() > System.currentTimeMillis()) {
@@ -64,7 +57,6 @@ public final class UseEntityListener extends PacketAdapter {
                     });
                 }
                 profile.debug("UseEntity packet blocked");
-                MX.blockedPerMinuteCount++;
             }
         }
         UseEntityEvent e = new UseEntityEvent(entity, attack, entityId, false);
@@ -72,7 +64,7 @@ public final class UseEntityListener extends PacketAdapter {
         if (e.isCancelled()) {
             event.setCancelled(true);
             profile.debug("UseEntity packet blocked after checking");
-            MX.blockedPerMinuteCount++;
         }
     }
+
 }

@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class SprintCheck implements PacketCheckHandler {
+
     private final PlayerProfile profile;
     private long lastAction, activeTo;
     private int zeros;
@@ -34,6 +35,7 @@ public class SprintCheck implements PacketCheckHandler {
         localCfg.put("addGlobalVl", 25);
         return new ConfigLabel("sprint", localCfg);
     }
+
     @Override
     public void applyConfig(Map<String, Object> params) {
         localCfg = params;

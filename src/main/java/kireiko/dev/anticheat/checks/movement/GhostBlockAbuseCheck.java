@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class GhostBlockAbuseCheck implements PacketCheckHandler {
+
     private final PlayerProfile profile;
     private int flags;
     private Location buffLoc;
@@ -75,8 +76,8 @@ public class GhostBlockAbuseCheck implements PacketCheckHandler {
                                 this.flags = 1;
                             } else {
                                 this.profile.debug("&7GhostBlock setback invalid world: "
-                                                + this.buffLoc.getWorld().getName()
-                                                + " " + profile.getPlayer().getWorld().getName());
+                                        + this.buffLoc.getWorld().getName()
+                                        + " " + profile.getPlayer().getWorld().getName());
                                 this.flags = 0;
                             }
                         }
@@ -87,24 +88,24 @@ public class GhostBlockAbuseCheck implements PacketCheckHandler {
     }
     private boolean isOnSolidGround(final Location location) {
         double x = location.getX(),
-                        y = location.getY() - 0.1,
-                        z = location.getZ();
+                y = location.getY() - 0.1,
+                z = location.getZ();
 
         for (int dx = -1; dx <= 1; dx++) {
             for (int dy = -1; dy <= 1; dy++) {
                 for (int dz = -1; dz <= 1; dz++) {
                     Block block = getBlockAsync(
-                                    new Location(
-                                                    this.profile.getPlayer().getWorld(),
-                                                    x + (dx * 0.3),
-                                                    y + (dy * 0.5),
-                                                    z + (dz * 0.3)
-                                    )
+                            new Location(
+                                    this.profile.getPlayer().getWorld(),
+                                    x + (dx * 0.3),
+                                    y + (dy * 0.5),
+                                    z + (dz * 0.3)
+                            )
                     );
                     if (block == null) return true;
                     Material material = block.getType();
                     if (!material.toString().contains("AIR") || material.isSolid()
-                                    || ignore(material.toString().toLowerCase())) {
+                            || ignore(material.toString().toLowerCase())) {
                         return true;
                     }
                 }
@@ -120,7 +121,9 @@ public class GhostBlockAbuseCheck implements PacketCheckHandler {
             return null;
         }
     }
+
     private static boolean ignore(String block) {
         return block.matches(".*(snow|step|frame|table|slab|stair|ladder|vine|waterlily|wall|carpet|fence|rod|bed|skull|pot|hopper|door|piston|lily).*");
     }
+
 }

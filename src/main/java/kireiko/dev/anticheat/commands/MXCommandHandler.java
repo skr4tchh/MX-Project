@@ -26,13 +26,10 @@ public final class MXCommandHandler implements TabExecutor {
     public MXCommandHandler() {
         this.subCommands.add(new AlertCommand());
         this.subCommands.add(new LogCommand());
-        this.subCommands.add(new BroadcastCommand());
         this.subCommands.add(new DebugCommand());
-        this.subCommands.add(new FunCommand());
         this.subCommands.add(new InfoCommand());
         this.subCommands.add(new PunishCommand());
         this.subCommands.add(new ReloadCommand());
-        this.subCommands.add(new StatsCommand());
         this.subCommands.add(new ActivityCommand());
         this.subCommands.add(new MLCommand());
         this.subCommands.add(new DatasetCommand());

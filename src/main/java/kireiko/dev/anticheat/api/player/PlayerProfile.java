@@ -3,7 +3,6 @@ package kireiko.dev.anticheat.api.player;
 import kireiko.dev.anticheat.MX;
 import kireiko.dev.anticheat.api.CheckPacketRegister;
 import kireiko.dev.anticheat.api.PacketCheckHandler;
-import kireiko.dev.anticheat.api.events.MXFlagEvent;
 import kireiko.dev.anticheat.managers.CheckManager;
 import kireiko.dev.anticheat.services.AnimatedPunishService;
 import kireiko.dev.anticheat.utils.ConfigCache;
@@ -31,10 +30,6 @@ public final class PlayerProfile {
     private final SensitivityProcessor sensitivityProcessor = new SensitivityProcessor(this);
     private final CinematicComponent cinematicComponent = new CinematicComponent(this);
     private final List<String> logs = new ArrayList<>();
-    public boolean transactionSentKeep;
-    public boolean transactionBoot = true;
-    public long transactionTime, transactionLastTime, transactionPing;
-    public short transactionId;
     public int airTicks, flagCount, punishAnimation, teleportTicks;
     public boolean sneaking = false, sprinting = false, ground = false;
     private boolean cinematic = false;
@@ -61,11 +56,6 @@ public final class PlayerProfile {
         // this.vl += 10.0f * m;
         final float tempVl = this.vl + 10.0f * m;
         final double vlLimit = ConfigCache.VL_LIMIT;
-        MXFlagEvent event = new MXFlagEvent(this.player, check, component, info, tempVl, vlLimit);
-        Bukkit.getPluginManager().callEvent(event); // forget to call event?
-        if (event.isCancelled()) {
-            return;
-        }
         this.vl = tempVl;
         this.flagCount += (m == 0.0) ? 0 : 1;
         String builder = this.wrapString(ConfigCache.ALERT_MSG
@@ -147,7 +137,6 @@ public final class PlayerProfile {
     }
 
     public void forcePunish(String check, String info) {
-        MX.bannedPerMinuteCount++;
         this.ignoreExitBan = true;
         this.vl = 0;
         Bukkit.getScheduler().runTask(MX.getInstance(), () -> {

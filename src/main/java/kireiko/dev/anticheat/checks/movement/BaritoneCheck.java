@@ -31,12 +31,14 @@ public class BaritoneCheck implements PacketCheckHandler {
     private final List<BaritoneTermData> longStack = new EvictingList<>(5);
     private int buffer = 0;
     private Vec2 oldMinMax = new Vec2(0, 0);
+
     @Override
     public ConfigLabel config() {
-        localCfg.put("vl", 30);
-        localCfg.put("vl_long", 20);
+        localCfg.put("vl", 20);
+        localCfg.put("vl_long", 10);
         return new ConfigLabel("baritone", localCfg);
     }
+
     @Override
     public void applyConfig(Map<String, Object> params) {
         localCfg = params;

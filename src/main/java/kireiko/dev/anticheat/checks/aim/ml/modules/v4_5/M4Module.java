@@ -6,7 +6,6 @@ import kireiko.dev.millennium.ml.data.module.FlagType;
 import kireiko.dev.millennium.ml.data.module.ModuleML;
 import kireiko.dev.millennium.ml.data.module.ModuleResultML;
 import kireiko.dev.millennium.ml.logic.ModelVer;
-import lombok.var;
 
 public class M4Module implements ModuleML {
 

@@ -21,6 +21,7 @@ import org.bukkit.entity.Player;
 import java.util.Arrays;
 
 public final class RawMovementListener extends PacketAdapter {
+
     public RawMovementListener() {
         super(
                 MX.getInstance(),
@@ -116,7 +117,6 @@ public final class RawMovementListener extends PacketAdapter {
 
         profile.getPastLoc().add(profile.getTo());
         profile.run(new MoveEvent(profile, profile.getTo(), profile.getFrom()));
-
-        if (profile.transactionBoot) LatencyHandler.startChecking(profile);
     }
+
 }
