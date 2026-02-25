@@ -1,7 +1,7 @@
 name: MX
-version: '5.1 (Dominus Deus)'
+version: '5.2 (Fusion)'
 api-version: '1.13'
-author: pawsashatoy
+authors: [pawsashatoy, Skr4tch]
 description: "Complex combat/automation analysis anti-cheat"
 main: kireiko.dev.anticheat.MX
 depend: [ ProtocolLib ]

@@ -34,7 +34,7 @@ public class BaritoneCheck implements PacketCheckHandler {
 
     @Override
     public ConfigLabel config() {
-        localCfg.put("vl", 20);
+        localCfg.put("vl", 30);
         return new ConfigLabel("baritone", localCfg);
     }
 
