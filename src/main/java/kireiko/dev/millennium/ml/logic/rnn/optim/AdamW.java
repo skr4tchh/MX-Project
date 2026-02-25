@@ -14,12 +14,15 @@ public final class AdamW {
     public void step(double[] w, double[] g, double[] m, double[] v, double lr, double wd, double clip) {
         double bc1 = 1.0 - Math.pow(B1, t);
         double bc2 = 1.0 - Math.pow(B2, t);
+        boolean doClip = clip > 0.0 && Double.isFinite(clip);
 
         for (int i = 0; i < w.length; i++) {
             double gi = g[i];
             if (Double.isNaN(gi) || Double.isInfinite(gi)) gi = 0.0;
-            if (gi > clip) gi = clip;
-            else if (gi < -clip) gi = -clip;
+            if (doClip) {
+                if (gi > clip) gi = clip;
+                else if (gi < -clip) gi = -clip;
+            }
 
             w[i] -= lr * wd * w[i];
 
@@ -36,11 +39,14 @@ public final class AdamW {
     public void stepScalar(DoubleRef w, double g, DoubleRef m, DoubleRef v, double lr, double wd, double clip) {
         double bc1 = 1.0 - Math.pow(B1, t);
         double bc2 = 1.0 - Math.pow(B2, t);
+        boolean doClip = clip > 0.0 && Double.isFinite(clip);
 
         double gi = g;
         if (Double.isNaN(gi) || Double.isInfinite(gi)) gi = 0.0;
-        if (gi > clip) gi = clip;
-        else if (gi < -clip) gi = -clip;
+        if (doClip) {
+            if (gi > clip) gi = clip;
+            else if (gi < -clip) gi = -clip;
+        }
 
         w.value -= lr * wd * w.value;
 
