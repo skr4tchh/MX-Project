@@ -1,7 +1,6 @@
 package kireiko.dev.millennium.ml;
 
-import kireiko.dev.anticheat.checks.aim.ml.modules.v4_5.*;
-import kireiko.dev.anticheat.checks.aim.ml.modules.v5.RNN1Module;
+import kireiko.dev.anticheat.checks.aim.ml.modules.RNN1Module;
 import kireiko.dev.millennium.ml.data.module.ModuleML;
 import kireiko.dev.millennium.ml.logic.Logger;
 import kireiko.dev.millennium.ml.logic.Millennium;
@@ -19,13 +18,6 @@ public class ClientML {
     private static final int TABLE_SIZE = 2;
 
     public static final List<ModuleML> MODEL_LIST = Arrays.asList(
-                    new M1Module(),
-                    new M2Module(),
-                    new M3Module(),
-                    new M4Module(),
-                    new M5Module(),
-                    new MHuge1Module(),
-                    new MHuge2Module(),
                     new RNN1Module()
     );
 

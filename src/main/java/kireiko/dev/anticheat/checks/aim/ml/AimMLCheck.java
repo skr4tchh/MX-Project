@@ -47,6 +47,7 @@ public final class AimMLCheck implements PacketCheckHandler {
         localCfg.put("unusual_vl", 10);
         localCfg.put("strange_vl", 20);
         localCfg.put("suspected_vl", 40);
+        localCfg.put("hitCancelTimeMS", 5000);
         return new ConfigLabel("aim_ml", localCfg);
     }
 
@@ -123,6 +124,7 @@ public final class AimMLCheck implements PacketCheckHandler {
                     break;
             }
             profile.punish("Aim", "ML", "&fResult: " + color + type + " &8" + Arrays.toString(modelsThatFlagged.toArray()), vl);
+            profile.setAttackBlockToTime(System.currentTimeMillis() + ((Number) localCfg.get("hitCancelTimeMS")).longValue());
         }
     }
 

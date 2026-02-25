@@ -1,11 +1,10 @@
-package kireiko.dev.anticheat.checks.aim.ml.modules.v5;
+package kireiko.dev.anticheat.checks.aim.ml.modules;
 
 import kireiko.dev.millennium.ml.data.ResultML;
 import kireiko.dev.millennium.ml.data.module.FlagType;
 import kireiko.dev.millennium.ml.data.module.ModuleML;
 import kireiko.dev.millennium.ml.data.module.ModuleResultML;
 import kireiko.dev.millennium.ml.logic.ModelVer;
-import org.bukkit.Bukkit;
 
 public class RNN1Module implements ModuleML {
 
@@ -38,4 +37,5 @@ public class RNN1Module implements ModuleML {
     public ModelVer getVersion() {
         return ModelVer.VERSION_5;
     }
+
 }
