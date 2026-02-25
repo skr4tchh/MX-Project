@@ -35,7 +35,6 @@ public class BaritoneCheck implements PacketCheckHandler {
     @Override
     public ConfigLabel config() {
         localCfg.put("vl", 20);
-        localCfg.put("vl_long", 10);
         return new ConfigLabel("baritone", localCfg);
     }
 
@@ -54,6 +53,7 @@ public class BaritoneCheck implements PacketCheckHandler {
         if (CheckManager.classCheck(this.getClass()))
             this.localCfg = CheckManager.getConfig(this.getClass());
     }
+
     @Override
     public void event(Object o) {
        if (o instanceof RotationEvent) {
@@ -89,7 +89,6 @@ public class BaritoneCheck implements PacketCheckHandler {
             int distinct = Statistics.getDistinct(yStack);
             BaritoneTermData baritoneTermData = new BaritoneTermData(minH, maxH, minV, maxV, sum, distinct);
             longStack.add(baritoneTermData);
-            if (longStack.size() >= 5) checkLong();
             { // result
                 boolean strangePitch = isSame(minV, maxV) || (Math.abs(minV) < 0.009 && Math.abs(maxV) < 0.009) || (isSame(minV, oldMinMax.getX()) && isSame(maxV, oldMinMax.getY()));
                 boolean invalidDistinct = distinct < 15 || (maxV < 0.009 && distinct < 50);
@@ -122,56 +121,8 @@ public class BaritoneCheck implements PacketCheckHandler {
         stack.clear();
     }
 
-    private void checkLong() {
-        List<Integer>
-        constData = new ArrayList<>();
-        List<Double>
-        xDiff = new ArrayList<>(),
-        yDiff = new ArrayList<>(),
-        sumTotal = new ArrayList<>()
-        ;
-        for (BaritoneTermData t : longStack) {
-            constData.add(t.constant);
-            xDiff.add(absDiff(t.minH, t.maxH));
-            yDiff.add(absDiff(t.minV, t.maxV));
-            sumTotal.add(t.sum);
-        }
-        final double
-        constVariance = wrap(Statistics.getVariance(constData)),
-        constAvg = wrap(Statistics.getAverage(constData)),
-        xAvg = wrap(Statistics.getAverage(xDiff)),
-        yAvg = wrap(Statistics.getAverage(yDiff)),
-        sumAvg = wrap(Statistics.getAverage(sumTotal));
-
-        final boolean
-        constCondition = constVariance < 4 && constAvg < 48,
-        deltaCondition = xAvg < 3 && yAvg < 3 && sumAvg > 100;
-
-        profile.debug("&7Baritone long check result: " + Arrays.toString(constData.toArray()) +
-                        ", [constV: " + constVariance + "]" +
-                        ", [constAvg: " + constAvg + "]" +
-                        ", [xAvg: " + xAvg + ", yAvg: " + yAvg + "]" +
-                        ", [sumAvg: " + sumAvg + "]"
-                        );
-
-        if (constCondition && deltaCondition) {
-            profile.punish("Movement", "Baritone", "Machine-like rotations (long)"
-                                            + "[constV: " + constVariance + "]" +
-                                            ", [constAvg: " + constAvg + "]" +
-                                            ", [xAvg: " + xAvg + ", yAvg: " + yAvg + "]" +
-                                            ", [sumAvg: " + sumAvg + "]"
-                            ,
-                            ((Number) localCfg.get("vl_long")).floatValue() / 10.0f);
-        }
-    }
-
     private boolean isSame(double a, double b) {
         return Math.abs(Math.abs(a) - Math.abs(b)) < 0.01;
     }
-    private double absDiff(double a, double b) {
-        return Math.abs(Math.abs(a) - Math.abs(b));
-    }
-    private double wrap(double v) {
-        return Simplification.scaleVal(v, 2);
-    }
+
 }

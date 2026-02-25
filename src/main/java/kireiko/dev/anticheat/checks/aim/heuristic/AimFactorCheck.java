@@ -30,8 +30,8 @@ public final class AimFactorCheck implements HeuristicComponent {
     @Override
     public ConfigLabel config() {
         localCfg.put("addGlobalVl", 10);
-        localCfg.put("buffer", 3.0);
-        localCfg.put("ticksToReset", 2500);
+        localCfg.put("buffer", 4.0);
+        localCfg.put("ticksToReset", 2000);
         return new ConfigLabel("factor_check", localCfg);
     }
 

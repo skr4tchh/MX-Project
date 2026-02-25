@@ -4,10 +4,10 @@ vlLimit: 100 # to ban
 vlReset: 15 # reset per minute
 alertMsg: "&9&l[MX] &e%player% &8>>&c %check% &7(&c%component%&7) &8%info% &f[%vl%/%vlLimit%]"
 
-unusual: "&9&l[MX] &e%player% &8>>&6 Playing suspiciously"
-suspected: "&9&l[MX] &e%player% &8>>&4 Looks like a cheater!"
+unusual: "&9&l[MX] &e%player% &8>>&6 Играет подозрительно."
+suspected: "&9&l[MX] &e%player% &8>>&4 Скорее всего читер!"
 
-banCommand: "ban %player% 1d Unfair advantage"
+banCommand: "tempbanip %player% 30d [FusionAC] Подозрение в читерстве"
 
 # "NONE" - disable bypass
 bypass: "mx.bypass"
@@ -32,7 +32,7 @@ logInFiles: true
 # MX will save the last 600 rotation ticks.
 # You will be able to view player activity via the MX panel
 # /mx activity %player%
-rotationsContainer: false
+rotationsContainer: true
 
 # Does not allow players to climb walls using ghost blocks
 preventGhostBlockAbuse: true
